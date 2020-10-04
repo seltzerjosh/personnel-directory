@@ -6,7 +6,7 @@ This function will create and insert/append the elements needed to display a "pa
 */
 function showPage(list, page) {
     const startIndex = (page * itemsPerPage) - itemsPerPage;
-    const endIndex = (page * itemsPerPage);
+    const endIndex = lastIndex();
     const ul = document.querySelector('ul.student-list');
     ul.innerHTML = '';
 
@@ -35,6 +35,16 @@ function showPage(list, page) {
         li.appendChild(div2);
         ul.appendChild(li);
 
+    }
+
+    function lastIndex() {
+        const defaultEnd = (page * itemsPerPage);
+        const dynamicEnd = (list.length);
+        if (dynamicEnd < defaultEnd) {
+            return dynamicEnd
+        } else {
+            return defaultEnd
+        }
     }
 }
 
@@ -74,3 +84,12 @@ function pagination(list) {
 // Call functions
 showPage(data, 1);
 pagination(data);
+
+
+/*
+TODO: Fix last_page error when less than max_per_page
+TODO: Add search bar
+TODO: Add search bar
+TODO: remove list object value from showing if blank
+
+  */
