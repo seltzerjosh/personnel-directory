@@ -104,3 +104,9 @@ dist
 .tern-port
 examples/example-exceeds.png
 examples/example-meets.png
+.idea/modules.xml
+.idea/personnel-directory.iml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/aws.xml
+.idea/vcs.xml
+.idea/workspace.xml
