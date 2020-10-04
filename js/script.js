@@ -1,9 +1,38 @@
 const itemsPerPage = 9;
 
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
+//Search bar
+function searchBar () {
+    const header = document.querySelector('header');
+
+    const form = document.createElement('form');
+
+    const label = document.createElement('LABEL');
+    label.htmlFor = ('search');
+    label.className = ('student-search');
+
+    const input = document.createElement('input')
+    input.id = 'search'
+    input.placeholder = 'Search by name...';
+
+    const button = document.createElement('button')
+    button.type = 'button'
+
+    const image = document.createElement('IMG')
+    image.src = 'img/icn-search.svg';
+
+    //TODO: insert image to button
+    label.appendChild(input);
+    label.appendChild(button);
+    form.appendChild(label);
+    header.appendChild(form);
+}
+
+
+
+/*label
+*   input
+*   button*/
+// Create the `showPage` function
 function showPage(list, page) {
     const startIndex = (page * itemsPerPage) - itemsPerPage;
     const endIndex = lastIndex();
@@ -47,11 +76,7 @@ function showPage(list, page) {
         }
     }
 }
-
-
-/*
-Create the `addPagination` function
-*/
+// Create the `addPagination` function
 function pagination(list) {
     const pages = Math.ceil(list.length / 9);
     const linkList = document.querySelector('ul.link-list');
@@ -79,17 +104,10 @@ function pagination(list) {
         }
     )
 }
-
-
 // Call functions
+searchBar();
 showPage(data, 1);
 pagination(data);
-
-
 /*
-TODO: Fix last_page error when less than max_per_page
-TODO: Add search bar
-TODO: Add search bar
-TODO: remove list object value from showing if blank
-
+TODO: Make search bar functional
   */
