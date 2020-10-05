@@ -109,3 +109,5 @@ const submit= document.querySelector('#submit');
 function performSearch(searchInput, names) {
     
 }
+
+//TODO: Refactor
