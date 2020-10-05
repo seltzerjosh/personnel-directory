@@ -1,38 +1,28 @@
+"use strict";
+
 const itemsPerPage = 9;
 
 //Search bar
-function searchBar () {
+function searchBar() {
     const header = document.querySelector('header');
-
     const form = document.createElement('form');
-
+    header.appendChild(form);
     const label = document.createElement('LABEL');
     label.htmlFor = ('search');
     label.className = ('student-search');
-
-    const input = document.createElement('input')
-    input.id = 'search'
-    input.placeholder = 'Search by name...';
-
-    const button = document.createElement('button')
-    button.type = 'button'
-
-    const image = document.createElement('IMG')
-    image.src = 'img/icn-search.svg';
-
-    //TODO: insert image to button
-    label.appendChild(input);
-    label.appendChild(button);
     form.appendChild(label);
-    header.appendChild(form);
+    const input = document.createElement('input')
+    input.id = 'search';
+    input.placeholder = 'Search by name...';
+    label.appendChild(input);
+    const button = document.createElement('button')
+    button.type = 'button';
+    button.id = 'submit';
+    label.appendChild(button);
+    document.querySelector('#submit').insertAdjacentHTML('afterbegin', '<img src="img/icn-search.svg" alt="Search icon">');
 }
 
-
-
-/*label
-*   input
-*   button*/
-// Create the `showPage` function
+//Show any given page
 function showPage(list, page) {
     const startIndex = (page * itemsPerPage) - itemsPerPage;
     const endIndex = lastIndex();
@@ -76,6 +66,7 @@ function showPage(list, page) {
         }
     }
 }
+
 // Create the `addPagination` function
 function pagination(list) {
     const pages = Math.ceil(list.length / 9);
@@ -104,10 +95,17 @@ function pagination(list) {
         }
     )
 }
-// Call functions
+
+// Call functions to set the page
 searchBar();
 showPage(data, 1);
 pagination(data);
-/*
-TODO: Make search bar functional
-  */
+
+//Search functionality
+const search = document.querySelector('#search');
+const submit= document.querySelector('#submit');
+
+//TODO: Make search functional
+function performSearch(searchInput, names) {
+    
+}
