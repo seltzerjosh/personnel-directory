@@ -1,5 +1,7 @@
+//Using strict mode to build good habits, not necessary to run this code.
 "use strict";
 
+//Sets maximum number of results per page
 const itemsPerPage = 9;
 
 //Search bar
@@ -56,12 +58,13 @@ function showPage(list, page) {
             ul.appendChild(li);
 
         }
+        //Inserts a No Results Found message if a search result does not have any results
     } else {
         const ul = document.querySelector('ul.student-list');
         ul.innerHTML = '<span>No Matches Found</span>';
 
     }
-
+    //Allows for the last page to be dynamic based on number of results
     function lastIndex() {
         const defaultEnd = (page * itemsPerPage);
         const dynamicEnd = (list.length);
@@ -107,10 +110,11 @@ searchBar();
 showPage(data, 1);
 pagination(data);
 
-//Search functionality
+//Search functionality setup
 const search = document.querySelector('#search');
 const submit = document.querySelector('#submit');
 
+//basic search function based on first and last name
 function performSearch(searchInput, names) {
     const searchedList = [];
     for (let i = 0; i < names.length; i++) {
@@ -120,27 +124,26 @@ function performSearch(searchInput, names) {
             searchedList.push(names[i]);
         }
     }
-    console.log(searchedList.length);
     if (searchInput.value.length === 0) {
         return data;
     } else if (searchedList.length === 0) {
-        console.log('nofinds');
+        return false;
     } else {
         return searchedList;
     }
 }
 
+//event listener for a search by click if not registered by keyup event listener
 submit.addEventListener('click', (event) => {
     event.preventDefault();
     showPage(performSearch(search, data), 1);
+    pagination(performSearch(search, data));
 })
 
+//event listener to search given list and refresh pagination and results w/reset to page1
 search.addEventListener('keyup', (event) => {
     event.preventDefault();
     showPage(performSearch(search, data), 1);
+    pagination(performSearch(search, data));
 })
-
-//TODO: Add search functionality to pagination
-//TODO: Add comments
-//TODO: BUG: Backing out a search does not go back to default
 //TODO: Refactor
