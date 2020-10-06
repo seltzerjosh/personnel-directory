@@ -24,35 +24,41 @@ function searchBar() {
 
 //Show any given page
 function showPage(list, page) {
-    const startIndex = (page * itemsPerPage) - itemsPerPage;
-    const endIndex = lastIndex();
-    const ul = document.querySelector('ul.student-list');
-    ul.innerHTML = '';
+    if (list) {
+        const startIndex = (page * itemsPerPage) - itemsPerPage;
+        const endIndex = lastIndex();
+        const ul = document.querySelector('ul.student-list');
+        ul.innerHTML = '';
 
-    for (let i = startIndex; (i >= startIndex && i < endIndex); i++) {
-        const img = document.createElement('img');
-        img.className = 'avatar';
-        img.src = data[i].picture.medium;
-        img.alt = 'profile picture';
-        const h3 = document.createElement('h3');
-        h3.textContent = `${data[i].name.first} ${data[i].name.last}`;
-        const span = document.createElement('span');
-        span.textContent = data[i].email;
-        const div = document.createElement('div');
-        const li = document.createElement('li');
-        li.className = ('student-item of');
-        const div2 = document.createElement('div');
-        div2.className = ('joined-details');
-        const span2 = document.createElement('span');
-        span2.className = ('date');
-        span2.textContent = `Joined: ${data[i].registered.date}`;
-        div2.appendChild(span2);
-        div.appendChild(img);
-        div.appendChild(h3);
-        div.appendChild(span);
-        li.appendChild(div);
-        li.appendChild(div2);
-        ul.appendChild(li);
+        for (let i = startIndex; (i >= startIndex && i < endIndex); i++) {
+            const img = document.createElement('img');
+            img.className = 'avatar';
+            img.src = list[i].picture.medium;
+            img.alt = 'profile picture';
+            const h3 = document.createElement('h3');
+            h3.textContent = `${list[i].name.first} ${list[i].name.last}`;
+            const span = document.createElement('span');
+            span.textContent = list[i].email;
+            const div = document.createElement('div');
+            const li = document.createElement('li');
+            li.className = ('student-item of');
+            const div2 = document.createElement('div');
+            div2.className = ('joined-details');
+            const span2 = document.createElement('span');
+            span2.className = ('date');
+            span2.textContent = `Joined: ${list[i].registered.date}`;
+            div2.appendChild(span2);
+            div.appendChild(img);
+            div.appendChild(h3);
+            div.appendChild(span);
+            li.appendChild(div);
+            li.appendChild(div2);
+            ul.appendChild(li);
+
+        }
+    } else {
+        const ul = document.querySelector('ul.student-list');
+        ul.innerHTML = '<span>No Matches Found</span>';
 
     }
 
@@ -90,7 +96,7 @@ function pagination(list) {
                     lis[i].firstElementChild.className = '';
                 }
                 e.target.className = 'active';
-                showPage(data, e.target.textContent);
+                showPage(list, e.target.textContent);
             }
         }
     )
@@ -103,11 +109,38 @@ pagination(data);
 
 //Search functionality
 const search = document.querySelector('#search');
-const submit= document.querySelector('#submit');
+const submit = document.querySelector('#submit');
 
-//TODO: Make search functional
 function performSearch(searchInput, names) {
-    
+    const searchedList = [];
+    for (let i = 0; i < names.length; i++) {
+        if ((searchInput.value.length !== 0) && (names[i].name.first.toLowerCase().includes(searchInput.value.toLowerCase())) ||
+        ((searchInput.value.length !== 0) && (names[i].name.last.toLowerCase().includes(searchInput.value.toLowerCase())))) {
+
+            searchedList.push(names[i]);
+        }
+    }
+    console.log(searchedList.length);
+    if (searchInput.value.length === 0) {
+        return data;
+    } else if (searchedList.length === 0) {
+        console.log('nofinds');
+    } else {
+        return searchedList;
+    }
 }
 
+submit.addEventListener('click', (event) => {
+    event.preventDefault();
+    showPage(performSearch(search, data), 1);
+})
+
+search.addEventListener('keyup', (event) => {
+    event.preventDefault();
+    showPage(performSearch(search, data), 1);
+})
+
+//TODO: Add search functionality to pagination
+//TODO: Add comments
+//TODO: BUG: Backing out a search does not go back to default
 //TODO: Refactor
