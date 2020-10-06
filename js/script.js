@@ -56,7 +56,6 @@ function showPage(list, page) {
             li.appendChild(div);
             li.appendChild(div2);
             ul.appendChild(li);
-
         }
         //Inserts a No Results Found message if a search result does not have any results
     } else {
@@ -90,7 +89,9 @@ function pagination(list) {
         linkList.appendChild(li);
     }
     let activePage = linkList.querySelector('button');
-    activePage.className = 'active';
+    if (activePage) {
+        activePage.className = 'active';
+    }
     linkList.addEventListener('click', (e) => {
             if (e.target.tagName == 'BUTTON') {
                 const ul = e.target.parentNode.parentNode;
@@ -146,4 +147,3 @@ search.addEventListener('keyup', (event) => {
     showPage(performSearch(search, data), 1);
     pagination(performSearch(search, data));
 })
-//TODO: Refactor
